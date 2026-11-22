@@ -8,6 +8,14 @@ const STATUS_CLASSES: Record<string, string> = {
   approved: "bg-success-subtle text-success",
   completed: "bg-success-subtle text-success",
   done: "bg-success-subtle text-success",
+  acknowledged: "bg-success-subtle text-success-emphasis",
+  confirmed: "bg-success-subtle text-success-emphasis",
+  finished: "bg-success-subtle text-success-emphasis",
+  sufficient: "bg-success-subtle text-success-emphasis",
+  reserved: "bg-success-subtle text-success-emphasis",
+  paid: "bg-success-subtle text-success-emphasis",
+  posted: "bg-success-subtle text-success-emphasis",
+  configured: "bg-success-subtle text-success-emphasis",
   read: "bg-success-subtle text-success",
   processed: "bg-success-subtle text-success",
   arrived: "bg-success-subtle text-success",
@@ -21,6 +29,10 @@ const STATUS_CLASSES: Record<string, string> = {
   expired: "bg-secondary-subtle text-secondary",
   "draft ppic": "bg-secondary-subtle text-secondary",
   "draft purchasing": "bg-secondary-subtle text-secondary",
+  unprocessed: "bg-secondary-subtle text-secondary-emphasis",
+  "not started": "bg-secondary-subtle text-secondary-emphasis",
+  "not applicable": "bg-secondary-subtle text-secondary-emphasis",
+  unavailable: "bg-secondary-subtle text-secondary-emphasis",
 
   // Danger
   locked: "bg-danger-subtle text-danger",
@@ -31,9 +43,19 @@ const STATUS_CLASSES: Record<string, string> = {
   canceled: "bg-danger-subtle text-danger",
   cancelled: "bg-danger-subtle text-danger",
   declined: "bg-danger-subtle text-danger",
+  shortage: "bg-danger-subtle text-danger-emphasis",
+  insufficient: "bg-danger-subtle text-danger-emphasis",
+  "not paid": "bg-danger-subtle text-danger-emphasis",
 
   // Warning
   pending: "bg-warning-subtle text-warning-emphasis",
+  "not configured": "bg-warning-subtle text-warning-emphasis",
+  "waiting for confirmation": "bg-warning-subtle text-warning-emphasis",
+  "waiting receipt": "bg-warning-subtle text-warning-emphasis",
+  "partially available": "bg-warning-subtle text-warning-emphasis",
+  "in payment": "bg-warning-subtle text-warning-emphasis",
+  "partially paid": "bg-warning-subtle text-warning-emphasis",
+  paused: "bg-warning-subtle text-warning-emphasis",
   draft: "bg-warning-subtle text-warning-emphasis",
   "documents need approval": "bg-warning-subtle text-warning-emphasis",
   "waiting for agreement": "bg-warning-subtle text-warning-emphasis",
@@ -52,6 +74,9 @@ const STATUS_CLASSES: Record<string, string> = {
   "waiting for approval": "bg-info-subtle text-info-emphasis",
   "internal review procurement": "bg-info-subtle text-info-emphasis",
   "in process": "bg-info-subtle text-info-emphasis",
+  running: "bg-info-subtle text-info-emphasis",
+  converted: "bg-info-subtle text-info-emphasis",
+  "proforma invoice": "bg-info-subtle text-info-emphasis",
   partial: "bg-info-subtle text-info-emphasis",
   "partially arrived": "bg-info-subtle text-info-emphasis",
   "partially ordered": "bg-info-subtle text-info-emphasis",
@@ -83,6 +108,14 @@ function getStatusClassName(value: string): string {
   // 2. Dynamic matching for status variants.
   if (normalized.startsWith("waiting for approval")) {
     return WAITING_STATUS_CLASS;
+  }
+
+  // Accounting status variants not covered by exact matches.
+  if (normalized.includes("reject")) {
+    return "bg-danger-subtle text-danger-emphasis";
+  }
+  if (normalized.includes("cancel")) {
+    return "bg-dark-subtle text-dark-emphasis";
   }
 
   // 3. Fallback for unknown status.
